@@ -8,7 +8,7 @@ As I've always turned to batch files the auto install scripts started.
 
 ## Usage
 Copy the below into your autounattened.xml which is on the root of your install.
-If you don't have one, check out [my Unattened Install files](https://github.com/blabley/Unattened).
+If you don't have one, check out [my Unattened Install files](https://github.com/blabley/AutoUnattend).
 
 ```xml
      <SynchronousCommand wcm:action="add">
