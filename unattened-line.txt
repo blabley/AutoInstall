@@ -1,0 +1,20 @@
+     <SynchronousCommand wcm:action="add">
+      <CommandLine>powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "New-Item “$env:systemroot\Install” -ItemType directory"</CommandLine>
+      <Order>95</Order>
+     </SynchronousCommand>
+     <SynchronousCommand wcm:action="add">
+      <CommandLine>powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "Invoke-WebRequest -UseBasicParsing "https://github.com/blabley/AutoInstall/archive/master.zip" -OutFile "$env:systemroot\Install\AutoInstall.zip" -PassThru"</CommandLine>
+      <Order>96</Order>
+     </SynchronousCommand>
+     <SynchronousCommand wcm:action="add">
+      <CommandLine>powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "Expand-Archive -Path $env:systemroot\Install\AutoInstall.zip -DestinationPath $env:systemroot\Install -Force"</CommandLine>
+      <Order>97</Order>
+     </SynchronousCommand>
+     <SynchronousCommand wcm:action="add">
+      <CommandLine>powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "Move-Item -LiteralPath $env:systemroot\Install\AutoInstall-master -Destination $env:systemdrive\Install -Force"</CommandLine>
+      <Order>98</Order>
+     </SynchronousCommand>
+     <SynchronousCommand wcm:action="add">
+      <CommandLine>cmd /c "%systemdrive%\Install\AutoInstall.cmd"</CommandLine>
+      <Order>99</Order>
+     </SynchronousCommand>
