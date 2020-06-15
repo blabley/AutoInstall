@@ -113,7 +113,9 @@ IF errorlevel 1 SET InstallFile=%SYSTEMDRIVE%\Install\choco_lite.txt
 IF errorlevel 2 SET InstallFile=%SYSTEMDRIVE%\Install\choco_base.txt
 IF errorlevel 3 SET InstallFile=%SYSTEMDRIVE%\Install\choco_full.txt
 @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-schtasks /create /f /sc WEEKLY /d MON /rl HIGHEST /tn "Update Pre-installed Applications" /tr "choco upgrade all -y" /st 12:00 /sd 01/01/2000
+SET /a raHR=(%RANDOM%*4/32768)+10
+SET /a raMN=(%RANDOM%*49/32768)+10 
+schtasks /create /f /SC weekly /D WED /rl HIGHEST /ru SYSTEM /tn "Update Pre-installed Applications" /tr "choco upgrade all -y" /st %raHR%:%raMN% /sd 01/01/2015
 FOR /F %%G IN (%InstallFile%) DO choco install %%G -y
 PUSHD %ProgramData%\chocolatey\lib
 FOR /R %%C IN (*.exe) DO nircmd shortcut "%%C" "~$folder.programs$\Chocolatey" "%%~nC"
@@ -169,10 +171,11 @@ IF "%myVar:~0,6%" GEQ "VMware" (GOTO VMware) ELSE (GOTO NoVMware)
 echo Not Installing VMware Tools...
 
 :finalstage
+@powershell -NoProfile -ExecutionPolicy Bypass -File "%SYSTEMDRIVE%\Install\Drivers.ps1"
+@powershell -NoProfile -ExecutionPolicy Bypass -File "%SYSTEMDRIVE%\Install\Wallpaper.ps1"
 
 
 :: Last tidy
-@powershell -NoProfile -ExecutionPolicy Bypass -File "%SYSTEMDRIVE%\Install\Drivers.ps1"
 DEL /F /Q %APPDATA%\Microsoft\Windows\Recent\*
 DEL /F /Q %APPDATA%\Microsoft\Windows\Recent\AutomaticDestinations\*
 DEL /F /Q %APPDATA%\Microsoft\Windows\Recent\CustomDestinations\*
