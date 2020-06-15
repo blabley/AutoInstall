@@ -179,6 +179,8 @@ echo Not Installing VMware Tools...
 DEL /F /Q %APPDATA%\Microsoft\Windows\Recent\*
 DEL /F /Q %APPDATA%\Microsoft\Windows\Recent\AutomaticDestinations\*
 DEL /F /Q %APPDATA%\Microsoft\Windows\Recent\CustomDestinations\*
+DEL /F /Q %TEMP%
+DEL /F /Q %TMP%
 ATTRIB +S +H +R %SYSTEMDRIVE%\Install
 nircmd.exe cdrom open
 SETX InstallDrive %SYSTEMDRIVE%\Install
