@@ -152,7 +152,7 @@ for /f "tokens=2 eol=, delims==" %%f in ('wmic COMPUTERSYSTEM get Manufacturer /
 IF "%myVar:~0,6%" GEQ "VMware" (GOTO VMware) ELSE (GOTO NoVMware)
 :VMware
 	Echo VMware found, Shall I install the VMware Tools?
-	CHOICE /C YN /T 30 /D Y
+	CHOICE /C YN /T 30 /D N
 	IF errorlevel 2 goto NoVMware
 	IF errorlevel 1 ECHO Installing VMware Tools...
 		REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /V "EnableAutoTray" /t REG_DWORD /D 00000000 /F
